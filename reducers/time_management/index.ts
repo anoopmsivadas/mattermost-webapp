@@ -4,17 +4,43 @@
 import {combineReducers} from 'redux';
 
 import TimeManagementTypes from 'utils/time_management/action_types';
+import {workDateToString, dateToWorkDateString} from 'utils/time_management/utils';
 import {WorkDate, WorkItem} from 'types/time_management';
 
 import {UserTypes} from 'mattermost-redux/action_types';
 import {GenericAction} from 'mattermost-redux/types/actions';
 import {Dictionary} from 'mattermost-redux/types/utilities';
 
-function workDateToString(date: WorkDate): string {
-    return `${date.year}-${date.month}-${date.year}`;
-}
+const testWorkItemsByDay = {
+    [dateToWorkDateString(new Date())]: [
+        {
+            title: 'Morning systems check',
+            time: 30,
+        },
+        {
+            title: 'Visit Mons Olympus',
+            time: 120,
+        },
+        {
+            title: 'Call home base at Houston',
+            time: 30,
+        },
+        {
+            title: 'Take a break',
+            time: 30,
+        },
+        {
+            title: 'Take some dirt samples',
+            time: 60,
+        },
+        {
+            title: 'Feel lonely',
+            time: 15,
+        },
+    ],
+};
 
-export function workItemsByDay(state: Dictionary<WorkItem[]> = {}, action: GenericAction) {
+export function workItemsByDay(state: Dictionary<WorkItem[]> = testWorkItemsByDay, action: GenericAction) {
     switch (action.type) {
     case TimeManagementTypes.RECEIVED_WORK_ITEM: {
         const date = action.date as WorkDate;

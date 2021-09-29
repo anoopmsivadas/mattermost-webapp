@@ -1,17 +1,11 @@
 // Copyright (c) 2015-present Mattermost, Inc. All Rights Reserved.
 // See LICENSE.txt for license information.
 
-export enum Mana {
-    large = 8,
-    medium = 4,
-    small = 2,
-    mini = 1,
-}
+import {Dictionary} from 'mattermost-redux/types/utilities';
 
 export type WorkItem = {
     title: string;
-    description: string;
-    mana: Mana;
+    time: number;
 }
 
 export type WorkDate = {
@@ -25,3 +19,9 @@ export type WorkDay = {
     queue: WorkItem[];
     allowedMana: number;
 }
+
+export type TimeState = {
+    time: {
+        workItemsByDay: Dictionary<WorkItem[]>;
+    };
+};
